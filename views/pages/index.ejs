@@ -1,0 +1,158 @@
+<% include ../snippets/header %>
+
+<body class="">
+
+  <% include ../snippets/nav %>
+
+  <header>
+    <h1>Random User Generator</h1>
+    <p>A free, <a id="openSource" href="https://github.com/RandomAPI/Randomuser.me-Node">open-source</a> API for generating random user data. Like Lorem Ipsum, but for people. </p>
+    <a href="https://twitter.com/randomapi" class="twitter"><img src="img/twitter.png">Follow us @randomapi</a>
+  </header>
+
+  <div class="frame card_offset">
+    <div class="card">
+      <div class="details">
+        <div class="user_photo horizontal_center" id="user_photo">
+          <a href="javascript:getNewUser();" class="refresh">New</a>
+          <img src="">
+        </div>
+        <p id="user_title">Hi, My name is</p>
+        <p id="user_value">...</p>
+      </div>
+
+      <ul class="values_list horizontal_center" id="values_list">
+        <li data-title="Hi, My name is"
+          data-value="..."
+          data-label="name"
+          class="active"></li>
+        <li data-title="My email address is"
+          data-value="..."
+          data-label="email"
+          data-caps="false"></li>
+        <li data-title="My birthday is"
+          data-value="..."
+          data-label="birthday"></li>
+        <li data-title="My address is"
+          data-value="..."
+          data-label="location"></li>
+        <li data-title="My phone number is"
+          data-value="..."
+          data-label="phone"></li>
+        <li data-title="My password is"
+          data-value="..."
+          data-label="pass"
+          data-caps="false"></li>
+      </ul>
+    </div>
+
+    <section class="sponsor">
+      <h2>Sponsored</h2>
+      <h3>RandomAPI</h3>
+      <p>Want to create your own <b>customized</b> data generator for your application?<br>Check out our other service RandomAPI!</p>
+      <button id="learnmore" class="button" onClick="window.open('https://randomapi.com');">Learn More</button>
+    </section>
+
+    <% include ../snippets/ads %>
+
+    <section>
+      <h2>How to use</h2>
+      <p>You can use AJAX to call the Random User Generator API and will receive a randomly generated user in return. If you are using jQuery, you can use the $.ajax() function in the code snippet below to get started.</p>
+      <pre>
+$.ajax({
+  url: '<span>https://randomuser.me/api/</span>',
+  dataType: '<span>json</span>',
+  success: function(<span>data</span>) {
+    console.log(<span>data</span>);
+  }
+});
+      </pre>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <p>The application will provide you with a JSON, XML, CSV, or YAML object that you can parse and apply to your application.</p>
+      <p>You can specify the format you want the results in using the <a href="documentation#format">format</a> parameter.</p>
+<pre>
+{
+  "results": [
+    {
+      "gender": "<span>female</span>",
+      "name": {
+        "title": "<span>Miss</span>",
+        "first": "<span>Jennie</span>",
+        "last": "<span>Nichols</span>"
+      },
+      "location": {
+        "street": {
+          "number": <span>8929</span>,
+          "name": "<span>Valwood Pkwy</span>",
+        },
+        "city": "<span>Billings</span>",
+        "state": "<span>Michigan</span>",
+        "country": "<span>United States</span>",
+        "postcode": "<span>63104</span>",
+        "coordinates": {
+          "latitude": "<span>-69.8246</span>",
+          "longitude": "<span>134.8719</span>"
+        },
+        "timezone": {
+          "offset": "<span>+9:30</span>",
+          "description": "<span>Adelaide, Darwin</span>"
+        }
+      },
+      "email": "<span>jennie.nichols@example.com</span>",
+      "login": {
+        "uuid": "<span>7a0eed16-9430-4d68-901f-c0d4c1c3bf00</span>",
+        "username": "<span>yellowpeacock117</span>",
+        "password": "<span>addison</span>",
+        "salt": "<span>sld1yGtd</span>",
+        "md5": "<span>ab54ac4c0be9480ae8fa5e9e2a5196a3</span>",
+        "sha1": "<span>edcf2ce613cbdea349133c52dc2f3b83168dc51b</span>",
+        "sha256": "<span>48df5229235ada28389b91e60a935e4f9b73eb4bdb855ef9258a1751f10bdc5d</span>"
+      },
+      "dob": {
+        "date": "<span>1992-03-08T15:13:16.688Z</span>",
+        "age": <span>30</span>
+      },
+      "registered": {
+        "date": "<span>2007-07-09T05:51:59.390Z</span>",
+        "age": <span>14</span>
+      },
+      "phone": "<span>(272) 790-0888</span>",
+      "cell": "<span>(489) 330-2385</span>",
+      "id": {
+        "name": "<span>SSN</span>",
+        "value": "<span>405-88-3636</span>"
+      },
+      "picture": {
+        "large": "<span>https://randomuser.me/api/portraits/men/75.jpg</span>",
+        "medium": "<span>https://randomuser.me/api/portraits/med/men/75.jpg</span>",
+        "thumbnail": "<span>https://randomuser.me/api/portraits/thumb/men/75.jpg</span>"
+      },
+      "nat": "<span>US</span>"
+    }
+  ],
+  "info": {
+    "seed": "<span>56d27f4a53bd5441</span>",
+    "results": <span>1</span>,
+    "page": <span>1</span>,
+    "version": "<span>1.4</span>"
+  }
+}
+</pre>
+    </section>
+    <section>
+      <h2>Thank you for helping us help you help us all</h2>
+      <p>Found a bug or have an idea?<br>Contribute to randomuser.me's database on our <a href="https://github.com/RandomAPI/Randomuser.me-Node">Github Repo</a>.</p>
+      <h2>Contact Us</h2>
+      <p>If you have any questions/feedback or would like to get in touch with us, tweet us <a href="https://twitter.com/randomapi">@randomapi</a></p>
+    </section>
+    <section class="cheat">
+      <p>&uarr; &uarr; &darr; &darr; &larr; &rarr; &larr; &rarr; B A</p>
+    </section>
+  </div>
+  <% include ../snippets/footer %>
+  <% include ../snippets/analytics %>
+</body>
+</html>

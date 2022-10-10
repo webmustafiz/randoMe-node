@@ -1,0 +1,306 @@
+<% include ../snippets/header %>
+
+<body class="documentation">
+
+  <% include ../snippets/nav %>
+
+  <% var subpageData = {title: "Documentation", subTitle: "Documentation for the Random User Generator API"}; %>
+  <% include ../snippets/subpage %>
+
+  <div class="frame">
+    <section class="glossary">
+      <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#howto">How to use</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#errors">Error Handling</a></li>
+        <li><a href="#multiple">Requesting multiple users</a></li>
+        <li><a href="#gender">Specifying a gender</a></li>
+        <li><a href="#passwords">Passwords</a></li>
+      </ul>
+      <ul>
+        <li><a href="#seeds">Seeds</a></li>
+        <li><a href="#format">Formats</a></li>
+        <li><a href="#previous">Versioning</a></li>
+        <li><a href="#nationalities">Nationalities</a></li>
+        <li><a href="#pagination">Pagination</a></li>
+        <li><a href="#incexc">Including/Excluding fields</a></li>
+        <li><a href="#misc">Miscellaneous</a></li>
+      </ul>
+    </section>
+
+    <% include ../snippets/ads %>
+
+    <section id="intro">
+      <h2>Introduction</h2>
+      <p>In August 2013, we set out with a goal to create a free and easy to use service to generate random user data for application testing.</p>
+    </section>
+
+    <section id="howto">
+      <h2>How to use</h2>
+      <p>You can use AJAX to call the Random User Generator API and will receive a randomly generated user in return. If you are using jQuery, you can use the $.ajax() function in the code snippet below to get started.</p>
+      <pre>
+$.ajax({
+  url: '<span>https://randomuser.me/api/</span>',
+  dataType: '<span>json</span>',
+  success: function(<span>data</span>) {
+    console.log(<span>data</span>);
+  }
+});
+      </pre>
+    </section>
+
+    <section id="results">
+      <h2>Results</h2>
+      <p>The API will provide you with a <a href="#format">formatted</a> object of your choice that you can parse and apply to your application.</p>
+      <p>JSON is the default format. You can request a different format using the <a href="#format">format parameter</a>.
+<pre>
+{
+  "results": [
+    {
+      "gender": "<span>female</span>",
+      "name": {
+        "title": "<span>Miss</span>",
+        "first": "<span>Jennie</span>",
+        "last": "<span>Nichols</span>"
+      },
+      "location": {
+        "street": {
+          "number": <span>8929</span>,
+          "name": "<span>Valwood Pkwy</span>",
+        },
+        "city": "<span>Billings</span>",
+        "state": "<span>Michigan</span>",
+        "country": "<span>United States</span>",
+        "postcode": "<span>63104</span>",
+        "coordinates": {
+          "latitude": "<span>-69.8246</span>",
+          "longitude": "<span>134.8719</span>"
+        },
+        "timezone": {
+          "offset": "<span>+9:30</span>",
+          "description": "<span>Adelaide, Darwin</span>"
+        }
+      },
+      "email": "<span>jennie.nichols@example.com</span>",
+      "login": {
+        "uuid": "<span>7a0eed16-9430-4d68-901f-c0d4c1c3bf00</span>",
+        "username": "<span>yellowpeacock117</span>",
+        "password": "<span>addison</span>",
+        "salt": "<span>sld1yGtd</span>",
+        "md5": "<span>ab54ac4c0be9480ae8fa5e9e2a5196a3</span>",
+        "sha1": "<span>edcf2ce613cbdea349133c52dc2f3b83168dc51b</span>",
+        "sha256": "<span>48df5229235ada28389b91e60a935e4f9b73eb4bdb855ef9258a1751f10bdc5d</span>"
+      },
+      "dob": {
+        "date": "<span>1992-03-08T15:13:16.688Z</span>",
+        "age": <span>30</span>
+      },
+      "registered": {
+        "date": "<span>2007-07-09T05:51:59.390Z</span>",
+        "age": <span>14</span>
+      },
+      "phone": "<span>(272) 790-0888</span>",
+      "cell": "<span>(489) 330-2385</span>",
+      "id": {
+        "name": "<span>SSN</span>",
+        "value": "<span>405-88-3636</span>"
+      },
+      "picture": {
+        "large": "<span>https://randomuser.me/api/portraits/men/75.jpg</span>",
+        "medium": "<span>https://randomuser.me/api/portraits/med/men/75.jpg</span>",
+        "thumbnail": "<span>https://randomuser.me/api/portraits/thumb/men/75.jpg</span>"
+      },
+      "nat": "<span>US</span>"
+    }
+  ],
+  "info": {
+    "seed": "<span>56d27f4a53bd5441</span>",
+    "results": <span>1</span>,
+    "page": <span>1</span>,
+    "version": "<span>1.4</span>"
+  }
+}
+</pre>
+    </section>
+
+    <section id="errors">
+      <h2>API Errors</h2>
+      <p>If our API service is offline or if we are experiencing server issues, we'll return a simple JSON object with an error.
+<pre>
+{
+  error: <span>"Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."</span>
+}
+</pre>
+    </section>
+
+    <section id="multiple">
+      <h2>Requesting Multiple Users</h2>
+      <p>Random User Generator allows you to fetch up to 5,000 generated users in one request using the <b>results</b> parameter.</p>
+<pre>
+https://randomuser.me/api/<span>?results=5000</span>
+</pre>
+    </section>
+
+    <section id="gender">
+      <h2>Specifying a gender</h2>
+      <p>You can specify whether you would like to have only male or only female users generated by adding the <b>gender</b> parameter to your request. Valid values for the gender parameter are "male" or "female", or you may leave the parameter blank. Any other value will cause the service to return both male and female users.</p>
+<pre>
+https://randomuser.me/api/<span>?gender=female</span>
+</pre>
+    </section>
+
+    <section id="passwords">
+      <h2>Passwords</h2>
+      <p>By default, passwords are chosen randomly from a list of ~10k top used passwords. Starting with version 1.1, you can have more control over how passwords are generated using the <span>password</span> option.</p>
+<pre>
+https://randomuser.me/api/<span>?password=upper,lower,1-16</span>
+</pre>
+
+      <p>The example above would generate a password consisting of uppercase and lowercase characters ranging between 1 to 16 characters long.<br><br>
+      You can specify options for the passwords using this format:</p>
+<pre>
+https://randomuser.me/api/<span>?password=CHARSETS,MIN_LENGTH-MAX_LENGTH</span>
+OR
+https://randomuser.me/api/<span>?password=CHARSETS,MAX_LENGTH</span>
+</pre>
+      <p>You can mix and match the charsets below for the CHARSETS option above:</p>
+<pre>
+special    !"#$%&'()*+,- ./:;<=>?@[\]^_`{|}~
+upper      ABCDEFGHIJKLMNOPQRSTUVWXYZ
+lower      abcdefghijklmnopqrstuvwxyz
+number     0123456789
+</pre>
+      <p>MIN_LENGTH and MAX_LENGTH are the min/max length of the passwords that you want to generate.<br>
+      By default, passwords will be between 8 - 64 characters long.<br><br>
+      Here are some more examples of password option combinations:</p>
+<pre>
+// Special chars exactly 32 characters long
+https://randomuser.me/api/<span>?password=special,32</span>
+
+// Uppercase chars between 1 to 8 characters long
+https://randomuser.me/api/<span>?password=upper,1-8</span>
+
+// Special, uppercase, lowercase, and numeric chars between the default 8 to 64 characters long
+https://randomuser.me/api/<span>?password=special,upper,lower,number</span>
+</pre>
+    </section>
+
+    <section id="seeds">
+      <h2>Seeds</h2>
+      <p>Seeds allow you to always generate the same set of users. For example, the seed "foobar" will always return results for <a href="https://randomuser.me/api/1.0/?seed=foobar" target="_blank">Becky Sims</a> (for version 1.0). Seeds can be any string or sequence of characters.</p>
+<pre>
+https://randomuser.me/api/<span>?seed=foobar</span>
+</pre>
+    </section>
+
+    <section id="format">
+      <h2>Formats</h2>
+      <p>We currently offer the following data formats:
+      <ul>
+        <li>JSON (default)</li>
+        <li>PrettyJSON or pretty</li>
+        <li>CSV</li>
+        <li>YAML</li>
+        <li>XML</li>
+      </ul>
+      <p>Just specify the format you would like returned by using the <b>format</b> parameter.</p>
+<pre>
+https://randomuser.me/api/<span>?format=csv</span>
+</pre>
+    </section>
+
+    <section id="previous">
+      <h2>Using previous versions</h2>
+      <p>When we release a new version the API, it could possibly break your application. By accessing the API via:</p>
+<pre>https://randomuser.me/api/</pre>
+      <p>The result that is returned automatically uses the latest version of the API.<br>
+      If you want to access a specific version of the API that won't be affected by updates, do this:</p>
+<pre>https://randomuser.me/api/<span><%-latestVersion%></span>/</pre>
+    </section>
+
+    <section id="nationalities">
+      <h2>Nationalities</h2>
+      <p>You can request a different nationality of a randomuser.</p>
+      <p>Pictures won't be affected by this, but data such as location, cell/home phone, id, etc. will be more appropriate.</p>
+      <p>Currently, randomuser offers these nationalities:</p>
+      <ul>
+        <li>v1.0: AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NL, NZ, TR, US</li>
+        <li>v1.1: AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NL, NZ, TR, US</li>
+        <li>v1.2: AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NO, NL, NZ, TR, US</li>
+        <li>v1.3: AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IR, NO, NL, NZ, TR, US</li>
+        <li>v1.4: AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IN, IR, MX, NL, NO, NZ, RS, TR, UA, US</li>
+      </ul>
+      <p>You can specify a nationality like so:</p>
+<pre>
+https://randomuser.me/api/<span>?nat=gb</span>
+</pre>
+      <p>Randomuser will return random nats by default. You can have some control with the nats that you'd like to have generated by specifying a comma seperated list:</p>
+<pre>
+https://randomuser.me/api/<span>?nat=us,dk,fr,gb</span>
+</pre>
+    </section>
+
+    <section id="pagination">
+      <h2>Pagination</h2>
+      <p>You can request multiple pages of a seed with the <b>page</b> parameter.<br>
+      Make sure that you use the same seed and page number (1 based index) in order to get back the same results</p>
+<pre>
+https://randomuser.me/api/<span>?page=3&results=10&seed=abc</span>
+</pre>
+    </section>
+
+    <section id="incexc">
+      <h2>Including/Excluding fields</h2>
+      <p>Sometimes, maybe you want some random names and not extraneous data such as location, phone, etc.<br>
+      Using the <b>inc</b> and <b>exc</b> parameters, you can specify which fields to include or exclude respectively.</p>
+      <p>By specifying only the fields you want, the generator can save time by skipping CPU intensive fields like "login" for example.</p>
+      <p>These parameters accept the following values in a comma delimited list</p>
+      <ul>
+        <li>gender</li>
+        <li>name</li>
+        <li>location</li>
+        <li>email</li>
+        <li>login</li>
+        <li>registered</li>
+        <li>dob</li>
+        <li>phone</li>
+        <li>cell</li>
+        <li>id</li>
+        <li>picture</li>
+        <li>nat</li>
+      </ul>
+      <p>If you only wanted the names,genders,and nats of users:</p>
+<pre>
+https://randomuser.me/api/<span>?inc=gender,name,nat</span>
+</pre>
+<p>If you want everything except for login data:</p>
+<pre>
+https://randomuser.me/api/<span>?exc=login</span>
+</pre>
+    </section>
+
+    <section id="misc">
+      <h2>Miscellaneous</h2>
+      <p>Some extra parameters that you can add to a request.</p>
+      <ul>
+        <li><b>dl</b> - Download the results with the appropriate format extension.</li>
+<pre>
+https://randomuser.me/api/?results=25&nat=gb,us,es&format=csv&<span>dl</span>
+</pre>
+        <li><b>noinfo</b> - If you only want the data, and don't care for seed, results, page, and version data.</li>
+<pre>
+https://randomuser.me/api/?results=5&inc=name,gender,nat&<span>noinfo</span>
+</pre>
+        <li><b>callback</b> - If you want the payload in JSONP, supply a callback using the callback parameter. Only available with JSON formats.</li>
+<pre>
+https://randomuser.me/api/?results=5&<span>callback=randomuserdata</span>
+</pre>
+      </ul>
+      <p>If you find a mistake with an API or would like to contribute to our database, feel free to visit our <a href="https://github.com/RandomAPI/Randomuser.me-Node">Github Repo</a>. We'd really appreciate it :)</p>
+    </section>
+  </div>
+  <% include ../snippets/footer %>
+  <% include ../snippets/analytics %>
+</body>
+</html>

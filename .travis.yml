@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "9"
+  - "10"
+  - "11"
+  - "12"
+env:
+  - spec=true
+install:
+  - npm install
+script:
+  - npm run ciTest
+  - codecov -f .nyc_output/*.json
+before_script:
+  - npm run build
+services:
+  - mongodb
